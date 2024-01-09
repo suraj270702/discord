@@ -36,13 +36,13 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className=" px-3 py-2 text-sm cursor-pointer">
+          <DropdownMenuItem className=" px-3 py-2 text-sm cursor-pointer" onClick={()=>onOpen("editServer",{server})}>
             Server Settings <Settings  className="ml-2 h-5 w-5"/>
             
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className=" px-3 py-2 text-sm cursor-pointer">
+          <DropdownMenuItem className=" px-3 py-2 text-sm cursor-pointer" onClick={()=>onOpen("members",{server})}>
             Manage Member <Users  className="ml-2 h-5 w-5"/>
             
           </DropdownMenuItem>
