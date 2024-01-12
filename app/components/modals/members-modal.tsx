@@ -36,6 +36,33 @@ export const MembersModal = () => {
 
   const { server } = data as { server: ServerWithMembersWithProfiles };
 
+
+  const handleUserRemove = async(memberId:string)=>{
+
+    try{
+      setLoadingId(memberId)
+
+      const url = qs.stringifyUrl({
+        url : `/api/members/${memberId}`,
+        query:{
+          serverId:server?.id
+        }
+      })
+
+      const response = await axios.delete(url)
+
+      router.refresh()
+      onOpen("members",{server : response.data})
+        
+    }
+    catch(error){
+      console.log(error)
+    }{
+      setLoadingId("")
+    }
+
+  }
+
   const handleRoleChange = async (memberId : string,role:MemberRole)=>{
     try{
        setLoadingId(memberId)
@@ -43,7 +70,7 @@ export const MembersModal = () => {
         url: `/api/members/${memberId}`,
         query:{
             serverId : server?.id,
-            memberId
+            
         }
        })
 
@@ -110,7 +137,7 @@ export const MembersModal = () => {
                                         </DropdownMenuItem>
                                     </DropdownMenuSubContent>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem>
+                                    <DropdownMenuItem onClick={()=>handleUserRemove(member.id)}>
                                         <Gavel  className="h-4 w-4 mr-2"/>
                                         Kick
                                     </DropdownMenuItem>
